@@ -1,0 +1,35 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: mainnet
+    source:
+      address: "0xc1933ed6a18c175A7C2058807F25e55461Cd92F5"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - TokenAddition
+        - TokenRemoval
+        - ConverterAddition
+        - ConverterRemoval
+        - OwnerUpdate
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: TokenAddition(indexed address)
+          handler: handleTokenAddition
+        - event: TokenRemoval(indexed address)
+          handler: handleTokenRemoval
+        - event: ConverterAddition(indexed address,address)
+          handler: handleConverterAddition
+        - event: ConverterRemoval(indexed address,address)
+          handler: handleConverterRemoval
+        - event: OwnerUpdate(indexed address,indexed address)
+          handler: handleOwnerUpdate
+      file: ./src/mapping.ts
