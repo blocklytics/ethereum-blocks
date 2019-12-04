@@ -1,5 +1,34 @@
-type ExampleEntity @entity {
+type Converter @entity {
   id: ID!
-  count: BigInt!
-  _token: Bytes! # address
+  smartToken: Token
+  tokenBalances: [ConverterTokenBalance!] @derivedFrom(field: "converter")
+}
+
+type Token @entity {
+  id: ID!
+  name: String
+  symbol: String
+  decimals: Int
+  totalSupply: BigInt
+  isSmartToken: Boolean
+  converters: [Converter!]
+}
+
+type ConverterTokenBalance @entity {
+  id: ID! # Concatenation of converter address and token address
+  converter: Converter
+  token: Token
+  balance: BigInt
+}
+
+type UserSmartTokenBalance @entity {
+  id: ID! # Concatenation of user and smartToken address
+  user: User!
+  smartToken: Token
+  balance: BigInt
+}
+
+type User @entity {
+  id: ID!
+  smartTokenBalances: [UserSmartTokenBalance!] @derivedFrom (field: "user")
 }

@@ -1,35 +1,116 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
+description: Bancor
+repository: https://github.com/blocklytics/bancor-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Contract
+    name: ConverterRegistryContract1
+    network: mainnet
+    source:
+      address: "0x0ddff327ddf7fe838e3e63d02001ef23ad1ede8e"
+      abi: ConverterRegistryContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - ConverterAddition
+      abis:
+        - name: ConverterRegistryContract
+          file: ./abis/ConverterRegistryContract.json
+        - name: ConverterContract
+          file: ./abis/ConverterContract.json
+        - name: SmartTokenContract
+          file: ./abis/SmartTokenContract.json
+        - name: ERC20Contract
+          file: ./abis/ERC20Contract.json
+      eventHandlers:
+        - event: ConverterAddition(indexed address,address)
+          handler: handleConverterAddition
+      file: ./src/mappings/converterRegistry1.ts
+  - kind: ethereum/contract
+    name: ConverterRegistryContract2
     network: mainnet
     source:
       address: "0xc1933ed6a18c175A7C2058807F25e55461Cd92F5"
-      abi: Contract
+      abi: ConverterRegistryContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - ConverterAddition
+      abis:
+        - name: ConverterRegistryContract
+          file: ./abis/ConverterRegistryContract.json
+        - name: ConverterContract
+          file: ./abis/ConverterContract.json
+        - name: SmartTokenContract
+          file: ./abis/SmartTokenContract.json
+        - name: ERC20Contract
+          file: ./abis/ERC20Contract.json
+      eventHandlers:
+        - event: ConverterAddition(indexed address,address)
+          handler: handleConverterAddition
+      file: ./src/mappings/converterRegistry2.ts
+templates:
+  - kind: ethereum/contract
+    name: ConverterContract
+    network: mainnet
+    source:
+      abi: ConverterContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - PriceDataUpdate
+      abis:
+        - name: ConverterContract
+          file: ./abis/ConverterContract.json
+        - name: ERC20Contract
+          file: ./abis/ERC20Contract.json
+      eventHandlers:
+        - event: PriceDataUpdate(indexed address,uint256,uint256,uint32)
+          handler: handlePriceDataUpdate
+      file: ./src/mappings/converter.ts
+  - kind: ethereum/contract
+    name: SmartTokenContract
+    network: mainnet
+    source:
+      abi: SmartTokenContract
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.2
       language: wasm/assemblyscript
       entities:
-        - TokenAddition
-        - TokenRemoval
-        - ConverterAddition
-        - ConverterRemoval
-        - OwnerUpdate
+        - Transfer
       abis:
-        - name: Contract
-          file: ./abis/Contract.json
+        - name: SmartTokenContract
+          file: ./abis/SmartTokenContract.json
       eventHandlers:
-        - event: TokenAddition(indexed address)
-          handler: handleTokenAddition
-        - event: TokenRemoval(indexed address)
-          handler: handleTokenRemoval
-        - event: ConverterAddition(indexed address,address)
-          handler: handleConverterAddition
-        - event: ConverterRemoval(indexed address,address)
-          handler: handleConverterRemoval
-        - event: OwnerUpdate(indexed address,indexed address)
-          handler: handleOwnerUpdate
-      file: ./src/mapping.ts
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mappings/smartToken.ts
+  - kind: ethereum/contract
+    name: ERC20Contract
+    network: mainnet
+    source:
+      abi: ERC20Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - Transfer
+      abis:
+        - name: ERC20Contract
+          file: ./abis/ERC20Contract.json
+      # eventHandlers:
+      #   - event: Approval(indexed address,indexed address,uint256)
+      #     handler: handleApproval
+      #   - event: Transfer(indexed address,indexed address,uint256)
+      #     handler: handleTransfer
+      file: ./src/mappings/erc20.ts

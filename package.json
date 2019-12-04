@@ -1,16 +1,17 @@
 {
-  "name": "bancor-balances",
+  "name": "bancor",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/bancor-balances",
-    "create-local": "graph create --node http://localhost:8020/ blocklytics/bancor-balances",
-    "remove-local": "graph remove --node http://localhost:8020/ blocklytics/bancor-balances",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blocklytics/bancor-balances"
+    "create-local": "graph create --node http://localhost:8020/ blocklytics/bancor",
+    "remove-local": "graph remove --node http://localhost:8020/ blocklytics/bancor",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blocklytics/bancor",
+    "deploy-staging" : "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/bancor-smart-token-balances"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.16.0",
-    "@graphprotocol/graph-ts": "0.15.0"
+    "@graphprotocol/graph-cli": "^0.16.0",
+    "@graphprotocol/graph-ts": "0.16.0"
   }
 }
