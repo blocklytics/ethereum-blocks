@@ -1,34 +1,16 @@
-type Converter @entity {
+type Block @entity {
   id: ID!
-  smartToken: Token
-  tokenBalances: [ConverterTokenBalance!] @derivedFrom(field: "converter")
-}
-
-type Token @entity {
-  id: ID!
-  name: String
-  symbol: String
-  decimals: Int
-  totalSupply: BigInt
-  isSmartToken: Boolean
-  converters: [Converter!]
-}
-
-type ConverterTokenBalance @entity {
-  id: ID! # Concatenation of converter address and token address
-  converter: Converter
-  token: Token
-  balance: BigInt
-}
-
-type UserSmartTokenBalance @entity {
-  id: ID! # Concatenation of user and smartToken address
-  user: User!
-  smartToken: Token
-  balance: BigInt
-}
-
-type User @entity {
-  id: ID!
-  smartTokenBalances: [UserSmartTokenBalance!] @derivedFrom (field: "user")
+  number: BigInt!
+  timestamp: BigInt!
+  parentHash: String
+  author: String
+  difficulty: BigInt
+  totalDifficulty: BigInt
+  gasUsed: BigInt
+  gasLimit: BigInt
+  receiptsRoot: String
+  transactionsRoot: String
+  stateRoot: String
+  size: BigInt
+  unclesHash: String
 }
