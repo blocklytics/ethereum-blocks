@@ -1,4 +1,6 @@
-# Blocks info to be used on multicall snapshot strategy
+# Blocks info to be used on multichain snapshot strategy
+
+[Multichain strategy](https://github.com/snapshot-labs/snapshot.js/tree/master/src/strategies/multichain)
 
 ## URLS:
 
