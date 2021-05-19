@@ -2,20 +2,19 @@
   "name": "ethereum-blocks",
   "license": "UNLICENSED",
   "scripts": {
-    "codegen": "graph codegen",
-    "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/ethereum-blocks",
-    "create-local": "graph create --node http://localhost:8020/ blocklytics/ethereum-blocks",
-    "remove-local": "graph remove --node http://localhost:8020/ blocklytics/ethereum-blocks",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blocklytics/ethereum-blocks",
-    "deploy-rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/rinkeby-blocks",
-    "deploy-kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/kovan-blocks",
-    "deploy-goerli": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/goerli-blocks",
-    "deploy-ropsten": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/ropsten-blocks",
-    "deploy-poa": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/poa-core-blocks"
+    "codegen": "graph codegen --debug --output-dir src/entities/",
+    "prepare:mainnet": "mustache config/ethereum-mainnet.json subgraph.template.yaml > subgraph.yaml && npm run codegen",
+    "prepare:ropsten": "mustache config/ethereum-ropsten.json subgraph.template.yaml > subgraph.yaml && npm run codegen",
+    "prepare:mumbai": "mustache config/matic-mumbai.json subgraph.template.yaml > subgraph.yaml && npm run codegen",
+    "prepare:matic": "mustache config/matic-mainnet.json subgraph.template.yaml > subgraph.yaml && npm run codegen",
+    "deploy:mainnet": "npm run prepare:mainnet && npx graph deploy --debug  --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/  decentraland/blocks-ethereum-mainnet",
+    "deploy:ropsten": "npm run prepare:ropsten && npx graph deploy --debug  --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/  decentraland/blocks-ethereum-ropsten",
+    "deploy:mumbai": "npm run prepare:mumbai && npx graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ decentraland/blocks-matic-mumbai",
+    "deploy:matic": "npm run prepare:matic && npx graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ decentraland/blocks-matic-mainnet"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.17.1",
-    "@graphprotocol/graph-ts": "0.17.0"
+    "@graphprotocol/graph-ts": "0.17.0",
+    "mustache": "^4.0.1"
   }
 }
