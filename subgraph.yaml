@@ -6,13 +6,14 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ConverterRegistryContract
-    network: rinkeby
+    network: palm-mainnet
     source:
-      address: "0x0ddff327ddf7fe838e3e63d02001ef23ad1ede8e"
+      address: "0xc35dadb65012ec5796536bd9864ed8773abc74c4"
       abi: ConverterRegistryContract
+      startBlock: 902496
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - ConverterAddition
