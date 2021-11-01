@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ConverterRegistryContract
-    network: mainnet
+    network: {{network}}
     source:
       address: "0x0ddff327ddf7fe838e3e63d02001ef23ad1ede8e"
       abi: ConverterRegistryContract
-      startBlock: 12165522 # which block this subgraph starts running
+      startBlock: {{startBlock}} # which block this subgraph starts running
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3

@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - 10
+
+install:
+  - yarn install
+
+script:
+  - yarn prepare
+  - git diff --exit-code
+  - yarn codegen
+  - yarn build
