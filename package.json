@@ -1,5 +1,5 @@
 {
-  "name": "ethereum-blocks",
+  "name": "blocks-subgraph",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
