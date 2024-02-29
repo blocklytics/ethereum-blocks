@@ -7,6 +7,13 @@
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/ethereum-blocks",
     "create-local": "graph create --node http://localhost:8020/ blocklytics/ethereum-blocks",
     "remove-local": "graph remove --node http://localhost:8020/ blocklytics/ethereum-blocks",
+
+    "create:k8s": "graph create --node http://graph-service:8020 blocklytics/ethereum-blocks",
+    "remove:k8s": "graph remove --node http://graph-service:8020 blocklytics/ethereum-blocks",
+    "deploy:k8s": "graph deploy --node http://graph-service:8020 --ipfs http://ipfs-service:5001 blocklytics/ethereum-blocks",
+    
+    "prep:apothem:dev": "yarn codegen && yarn build",
+
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blocklytics/ethereum-blocks",
     "deploy-rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/rinkeby-blocks",
     "deploy-kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/kovan-blocks",
@@ -15,7 +22,7 @@
     "deploy-poa": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ blocklytics/poa-core-blocks"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "^0.17.1",
+    "@graphprotocol/graph-cli": "^0.20.0",
     "@graphprotocol/graph-ts": "0.17.0"
   }
 }
